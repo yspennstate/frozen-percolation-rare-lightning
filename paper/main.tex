@@ -1,0 +1,698 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dd}{\mathrm{d}}
+
+\hypersetup{pdftitle={Frozen Percolation with Rare Lightning up to the Critical Time},pdfauthor={Yitzchak Shmalo}}
+
+\begin{document}
+
+\title[Rare lightning up to the critical time]{Frozen Percolation with Rare Lightning up to the Critical Time}
+\author{Yitzchak Shmalo}
+\address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yitzchak.shmalo@gmail.com}
+\date{}
+\subjclass[2020]{60K35, 82B43, 60J80}
+\keywords{frozen percolation, lightning, forest fire, three-regular tree, recursive distributional equation, local limit}
+
+\begin{abstract}
+In frozen percolation on a finite graph, edges open at independent
+uniform times, vertices are struck by lightning at rate $\lambda$, and a
+strike freezes the open cluster of the struck vertex. On graphs of
+maximum degree at most three, the probability that a given vertex is
+frozen by time $1/2$, the critical time of the three-regular tree, is at
+most
+$\frac34\lambda\log(1/\lambda)+O(\lambda)$, uniformly in the graph. So
+along such graphs converging locally to the three-regular tree with
+$\lambda_n\to0$, the process on $[0,1/2]$ converges to Aldous's frozen
+percolation, in which no vertex is frozen before time $1/2$. On the tree itself, an exact recursion for the
+freezing time shows that the root is frozen by time $1/2$ with
+probability
+$\frac34\lambda[\log(1/\lambda)-\log\log(1/\lambda)+\log4-\frac13+o(1)]$,
+so the constant $\frac34$ in the bound cannot be lowered. Convergence after time $1/2$ remains
+open.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Frozen percolation was introduced by Aldous~\cite{Ald00}. Edges of the
+three-regular tree $\T$ open at independent uniform times in $[0,1]$, and
+an open cluster freezes at the moment it becomes infinite, after which no
+edge touching it opens. Aldous constructed such a process on $\T$; we
+call it Aldous's process. Ráth, Swart and Terpai~\cite{RST21} showed
+that whether an edge of $\T$ freezes in Aldous's process is not a
+function of the edge times, and they asked how the process arises from
+finite graphs. Infinite clusters do not exist on a finite graph, so they freeze
+clusters by lightning instead.
+
+\smallskip
+\noindent\textbf{The model.} Let $G=(V,E)$ be a finite graph and let
+$\lambda>0$. Let $(U_e)_{e\in E}$ be independent and uniform on $[0,1]$,
+and let $(\Lambda_v)_{v\in V}$ be independent exponential random variables
+with mean $\lambda^{-1}$, independent of the edge times. Every vertex is
+\emph{warm} at time $0$. At time $U_e$ the edge $e$ opens, provided that
+neither endvertex is frozen. At time $\Lambda_v$ every vertex of the open
+cluster of $v$ becomes frozen. Frozen vertices stay frozen and open edges
+stay open. We write $\tau_v$ for the time at which $v$ becomes frozen
+($\tau_v=\infty$ if it never does). This is the finite-graph model of
+\cite[Section~1.7]{RST21}, where $\lambda$ is called the lightning rate.
+Replacing the single time $\Lambda_v$ by the points of a Poisson process
+of rate $\lambda$ changes nothing, since strikes at frozen vertices have
+no effect.
+
+Ráth, Swart and Terpai consider graphs $G_n$ with $n$ vertices that
+converge locally to a limit graph, with rates satisfying
+$n^{-1}=o(\lambda_n)$ and $\lambda_n\to0$. They pose the following
+problem~\cite[Problem~2]{RST21}: show that frozen percolation on the
+three-regular tree is the local weak limit of frozen percolation on a
+suitable sequence of finite graphs. They also observe
+that up to the critical time $p_c$ of the limit graph, open clusters
+grow as in ordinary percolation \cite[Section~1.7]{RST21}; for $\T$ the
+critical time is $1/2$. Let $C_s(v)$ be the cluster of $v$ in the graph
+of edges with $U_e\le s$. A vertex frozen at time $s$ has a struck vertex
+in $C_s(v)$, so $\PP(\tau_v\le t)\le\lambda\int_0^t\E|C_s(v)|\,\dd s$,
+and on graphs of maximum degree at most three
+$\E|C_s(v)|\le(1+s)/(1-2s)$. This bound is finite for $t<1/2$ and
+infinite at $t=1/2$: on $\T$ the expected cluster size equals
+$(1+s)/(1-2s)$, which is not integrable at $1/2$. Near the critical time
+we replace the expectation by the generating function $\psi$ of
+the total progeny of a critical Galton--Watson tree whose root has
+$\mathrm{Bin}(3,1/2)$ children and whose other vertices have
+$\mathrm{Bin}(2,1/2)$ children, given in
+\eqref{eq:A1} below. An upper bound of this kind does not show that its
+constant is attained. On $\T$, removing an edge at the root leaves a
+rooted binary tree, a \emph{branch}; the subtrees below a vertex are
+independent branches, and the freezing time of the root of a branch
+satisfies an exact recursive distributional equation of the kind
+surveyed by Aldous and Bandyopadhyay~\cite{AB05}. Written for the
+edges, it is the recursion of Aldous's process as given by Ráth, Swart
+and Terpai~\cite[Section~1.2]{RST21}, with the lightning time of the root
+of the branch added to the minimum. It reduces to a
+differential equation, and the logarithm that this equation produces at
+$t=1/2$ shows that the constant is attained.
+
+We make the observation of Ráth, Swart and Terpai quantitative and compute the first-order
+effect of the lightning before time $1/2$ on the tree. The first result
+is a bound that depends on the graph only through its maximum degree.
+
+\begin{theorem}\label{thm:A}
+Let $G$ be a finite graph of maximum degree at most three, let $v$ be a
+vertex of $G$, and let $\lambda>0$. For every $0<\varepsilon<1/2$,
+\begin{equation}\label{eq:A1}
+\PP(\tau_v\le\tfrac12)\le
+\lambda\Bigl[-\frac14+\frac\varepsilon2+\frac34\log\frac1{2\varepsilon}\Bigr]
++1-\psi\bigl(e^{-\lambda\varepsilon}\bigr),
+\qquad
+\psi(z)=\frac{1-\sqrt{1-z}}{\bigl(1+\sqrt{1-z}\bigr)^2}.
+\end{equation}
+In particular, for $0<\lambda\le1$,
+\begin{equation}\label{eq:A2}
+\PP(\tau_v\le\tfrac12)\le \beta(\lambda):=
+\frac{3\lambda}{4}\log\frac2\lambda+\frac{5\lambda}{4}+\frac{\lambda^2}{8}.
+\end{equation}
+\end{theorem}
+
+The bound needs no assumption on $n\lambda$ and holds for every vertex,
+not only for a typical one. It gives the convergence of the process up to
+time $1/2$. For a finite graph $G$ and a vertex $o$ let $B_r(G,o)$ be the
+ball of radius $r$ around $o$, and let $\T_r$ be the ball of radius $r$
+in $\T$, which has $3\cdot2^r-2$ vertices. Up to time $1/2$, Aldous's
+process on $\T$ freezes nothing, since critical percolation on $\T$ has
+no infinite cluster; every edge $e$ is open from time $U_e$ on.
+
+\begin{corollary}\label{cor:B}
+Let $G_n$ be finite graphs of maximum degree at most three, let $o_n$ be
+a uniformly chosen vertex of $G_n$, and let
+$b_n(r)=\PP(B_r(G_n,o_n)\not\cong\T_r)$. Let $\lambda_n\in(0,1]$. There is
+a coupling of the frozen percolation process on $G_n$ with rate
+$\lambda_n$, rooted at $o_n$, with Aldous's process on $\T$, under which,
+outside an event of probability at most
+\begin{equation}\label{eq:B1}
+b_n(r)+(3\cdot2^r-2)\,\beta(\lambda_n),
+\end{equation}
+the two balls of radius $r$ are identified and every edge and every
+vertex of the ball has the same open/closed and warm/frozen history on
+$[0,1/2]$ in both processes. In particular, if $G_n$ converges locally to
+$\T$ and $\lambda_n\to0$, the process restricted to times in $[0,1/2]$
+converges locally to Aldous's process restricted to the same times. On
+$\T$ that restriction has no frozen vertex almost surely, so on
+$[0,1/2]$ the limit is ordinary percolation.
+\end{corollary}
+
+Theorem~\ref{thm:A} and Corollary~\ref{cor:B} are proved in
+Section~\ref{sec:A}. The main result shows that the order
+$\lambda\log(1/\lambda)$ and the constant $3/4$ are correct. On $\T$ the
+process up to time $1/2$ is defined by running it on each critical
+percolation cluster, all of which are finite.
+
+\begin{theorem}\label{thm:C}
+Let $o$ be the root of the three-regular tree $\T$ and $L=\log(1/\lambda)$.
+For the frozen percolation process with lightning rate $\lambda$ on $\T$,
+as $\lambda\downarrow0$,
+\begin{equation}\label{eq:C1}
+\PP(\tau_o\le\tfrac12)=\frac{3\lambda}{4}\Bigl[L-\log L+\log4-\frac13+o(1)\Bigr].
+\end{equation}
+\end{theorem}
+
+Balls $\T_R$ rooted at their centre are finite graphs of maximum degree
+three, and their root freezing probabilities tend to that of $\T$ as
+$R\to\infty$ (Section~\ref{sec:sharp}). Together with
+Theorem~\ref{thm:A} this gives
+\begin{equation}\label{eq:sharp}
+\lim_{\lambda\downarrow0}\ \sup_{G,v}\
+\frac{\PP_G(\tau_v\le\frac12)}{\lambda\log(1/\lambda)}=\frac34,
+\end{equation}
+the supremum running over finite graphs of maximum degree at most three
+and their vertices. The centred balls are not themselves a sequence
+converging locally to $\T$, since about half of their vertices are
+leaves; \eqref{eq:sharp} concerns the uniform bound only.
+
+The proof of Theorem~\ref{thm:C} rests on the exact recursion for the
+freezing time $X$ of the root of a branch (Section~\ref{sec:rec}). It
+reduces to the ordinary differential equation
+\[
+h'=\lambda\,\frac{(1+h)(1+h-t)}{1-2t+h},\qquad h(0)=0,
+\]
+on $[0,1/2]$, where $h$ is an explicit function of the law of $X$
+(Lemma~\ref{lem:ode}). As $\lambda\to0$ the denominator nearly
+vanishes at $t=1/2$, and the logarithmic singularity of the integral of
+$1/(1-2t+h)$ produces the term $\log(1/\lambda)$ (Section~\ref{sec:asym}).
+
+\smallskip
+\noindent\textbf{Relation to other work.}
+Aldous constructed his process in~\cite{Ald00}, recursive
+distributional equations of this kind are surveyed by Aldous and
+Bandyopadhyay~\cite{AB05}, and Ráth, Swart and Terpai proved that the
+process is not endogenous~\cite{RST21}. Van den Berg, Kiss and
+Nolin~\cite{BKN12} study a percolation process on the planted binary
+tree in which clusters freeze as soon as their size reaches a parameter
+$N$, instead of by lightning, and show that as $N\to\infty$, at each time $t$, the probability that
+the open cluster of the root equals a given finite cluster converges to
+the corresponding probability in Aldous's process, and so does the
+probability that this cluster is frozen~\cite[Theorem~1]{BKN12}. Corollary~\ref{cor:B} differs in three ways: it
+concerns finite graphs converging to $\T$ rather than the tree itself,
+clusters freeze by lightning rather than at a size threshold, and it
+covers only times up to $1/2$. On the complete graph, frozen
+percolation was introduced by Ráth~\cite{Rat09}, following a suggestion
+of Aldous~\cite[Section~5.5]{Ald00}, and the related forest fire model by
+Ráth and Tóth~\cite{RT09}. Ráth, Szőke and Yeo~\cite{RSY26} study the
+complete graph with lightning rate $\lambda_n$, where struck components
+are deleted. Their deterministic window curve $w(t)=tq(t)$ solves
+$q'=-\lambda q/(1-tq)$ with $q(0)=1$, and the fraction lost by the
+critical time $t=1$ is of order $\lambda\log(1/\lambda)$, as they note
+without proof \cite[Remark~2.18]{RSY26}; their Claim~2.17 gives the time
+at which the window curve reaches criticality. Theorem~\ref{thm:C} is a tree
+counterpart of this, with the constant identified.
+
+Problem~2 of \cite{RST21} remains open. After time $1/2$ the
+percolation clusters of $\T$ can be infinite, the construction by finite
+clusters fails, and freezing can be transmitted into a ball from far
+away.
+Section~\ref{sec:sharp} proves \eqref{eq:sharp} and gives two examples,
+and Section~\ref{sec:num} compares \eqref{eq:C1} with a numerical
+solution of the differential equation.
+
+\section{A uniform bound before the critical time}\label{sec:A}
+
+Couple the process with ordinary percolation $E_t=\{e:U_e\le t\}$ by
+using the same edge times. Open edges at time $t$ belong to $E_t$. Let
+$C_t(v)$ be the cluster of $v$ in $(V,E_t)$, as in the introduction. A vertex freezes only at a
+lightning time, and only if the struck vertex lies in its open cluster.
+Hence
+\begin{equation}\label{eq:necessary}
+\tau_v=s\quad\Longrightarrow\quad \Lambda_u=s\ \text{ for some } u\in C_s(v).
+\end{equation}
+
+\begin{lemma}\label{lem:cluster}
+Let $G$ be a finite or countably infinite graph of maximum degree at
+most three. For $0\le t<1/2$,
+\[
+\E|C_t(v)|\le1+\frac{3t}{1-2t}=-\frac12+\frac{3}{2(1-2t)}.
+\]
+At $t=1/2$, $|C_{1/2}(v)|$ is stochastically dominated by the total
+progeny $N$ of a Galton--Watson tree whose root has a
+$\mathrm{Bin}(3,1/2)$ number of children and whose other vertices have
+$\mathrm{Bin}(2,1/2)$ children, and $\E z^N=\psi(z)$ for
+$0\le z\le1$.
+\end{lemma}
+
+\begin{proof}
+Explore $C_t(v)$ breadth first, testing each unexplored edge at a
+discovered vertex once. The root has at most three edges and every other
+discovered vertex at most two unexplored edges, each open independently
+with probability $t$; an edge leading to an already discovered vertex adds
+nothing. So $|C_t(v)|$ is dominated by the total progeny of a
+Galton--Watson tree with root offspring $\mathrm{Bin}(3,t)$ and other
+offspring $\mathrm{Bin}(2,t)$, whose mean is $1+3t\sum_{k\ge0}(2t)^k$ for
+$t<1/2$. For $t=1/2$, the progeny generating function $f$ of a
+$\mathrm{Bin}(2,1/2)$ vertex satisfies $f=z\bigl((1+f)/2\bigr)^2$. With
+$y=\sqrt{1-z}$ the root of this equation in $[0,1]$ is
+$f=(1-y)/(1+y)$, and the root has
+$\E z^N=z\bigl((1+f)/2\bigr)^3=z/(1+y)^3=(1-y)/(1+y)^2$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+Put $t_0=1/2-\varepsilon$. By \eqref{eq:necessary}, $\tau_v\le t_0$
+requires some $u$ with $\Lambda_u\le t_0$ and $u\in C_{\Lambda_u}(v)$. The
+lightning times are independent of the edge times and have density at
+most $\lambda$, so
+\[
+\PP(\tau_v\le t_0)\le\sum_u\int_0^{t_0}\lambda\,\PP(u\in C_s(v))\,\dd s
+=\lambda\int_0^{t_0}\E|C_s(v)|\,\dd s
+\le\lambda\Bigl[-\frac{t_0}2+\frac34\log\frac1{1-2t_0}\Bigr]
+\]
+by Lemma~\ref{lem:cluster}; this is the first term of \eqref{eq:A1}.
+
+If $t_0<\tau_v\le1/2$, then by \eqref{eq:necessary} some vertex of
+$C_{1/2}(v)\supseteq C_{\tau_v}(v)$ has its lightning time in
+$(t_0,1/2]$. Given $|C_{1/2}(v)|=k$, the lightning times of these $k$
+vertices are independent of the cluster, and the probability that one of
+them falls in $(t_0,1/2]$ is
+\[
+1-\bigl(1-e^{-\lambda t_0}(1-e^{-\lambda\varepsilon})\bigr)^k
+\le1-e^{-\lambda\varepsilon k}.
+\]
+The right side increases with $k$, so by Lemma~\ref{lem:cluster} its
+expectation is at most $1-\E e^{-\lambda\varepsilon N}
+=1-\psi(e^{-\lambda\varepsilon})$. This proves \eqref{eq:A1}.
+
+For \eqref{eq:A2}, write $y=\sqrt{1-z}$. Then
+$1-\psi(z)=(3y+y^2)/(1+y)^2\le3y$. Take $\varepsilon=\lambda/4$,
+which is less than $1/2$ for $\lambda\le1$. Since
+$1-e^{-\lambda^2/4}\le\lambda^2/4$, we get
+$1-\psi(e^{-\lambda^2/4})\le3\lambda/2$, and the first term of
+\eqref{eq:A1} becomes $\lambda[-1/4+\lambda/8+\frac34\log(2/\lambda)]$.
+Adding gives \eqref{eq:A2}.
+\end{proof}
+
+The same argument applies to an infinite graph of maximum degree at most three.
+By Lemma~\ref{lem:cluster} all clusters of $(V,E_{1/2})$ are finite
+almost surely. Vertices in different clusters of $E_{1/2}$ do not
+interact before time $1/2$, so the process up to time $1/2$ is defined by
+running it on each of these finite clusters, and \eqref{eq:A1} and
+\eqref{eq:A2} hold for it. This is the process on $\T$ used in
+Theorem~\ref{thm:C}.
+
+\begin{proof}[Proof of Corollary~\ref{cor:B}]
+On the event $B_r(G_n,o_n)\cong\T_r$, fix an isomorphism and use the same
+edge times for corresponding edges of the two balls; all other marks are
+independent. Suppose that no vertex of the ball in $G_n$ is frozen at
+time $1/2$. Then every edge of the ball opens exactly at its time $U_e$
+if $U_e\le1/2$, and every vertex of the ball is warm on $[0,1/2]$. This
+is also the history of Aldous's process on $\T_r$ up to time $1/2$, which
+freezes nothing then. Applying Theorem~\ref{thm:A} to each of the
+$3\cdot2^r-2$ vertices of the ball and taking a union bound gives
+\eqref{eq:B1}. If $G_n\to\T$ locally then $b_n(r)\to0$ for each $r$, and
+\eqref{eq:B1} tends to zero when $\lambda_n\to0$.
+\end{proof}
+
+\section{The freezing-time recursion on the tree}\label{sec:rec}
+
+Remove from $\T$ the edge between the root $o$ and one of its neighbours
+$w$. The component of $w$ is a branch. Let
+$X$ be the freezing time of $w$ in the process run on this branch
+alone, with values beyond $1/2$ replaced by $\infty$. Let $w_1,w_2$ be
+the children of $w$, let $X_1,X_2$ be their freezing times in their
+own branches, and let $U_1,U_2$ be the times of the edges $ww_1,ww_2$.
+
+\begin{lemma}\label{lem:rec}
+Almost surely, $X=\min\bigl(\Lambda_w,\ \{X_i:\ U_i<X_i\}\bigr)$, where
+the minimum of an empty set is $\infty$ and values beyond $1/2$ are
+replaced by $\infty$ on both sides. The variables $X_1,X_2,U_1,U_2,
+\Lambda_w$ are independent and $X_1,X_2$ have the law of $X$. The same
+holds for the root $o$ with three children in place of two.
+\end{lemma}
+
+Let $U_0$ be the time of the edge $ow$, put $Y=X$ if $U_0<X$ and
+$Y=\infty$ otherwise, and define $Y_1,Y_2$ in the same way from
+$X_1,U_1$ and $X_2,U_2$. Then Lemma~\ref{lem:rec} reads
+$Y=\gamma[U_0]\bigl(\min(\Lambda_w,Y_1,Y_2)\bigr)$, where
+$\gamma[u](x)=x$ if $x>u$ and $\gamma[u](x)=\infty$ otherwise. Without
+the term $\Lambda_w$ this is the recursion of Aldous's process on the
+oriented binary tree, as Ráth, Swart and Terpai write
+it~\cite[Section~1.2]{RST21}; the lightning enters only as a third term
+of the minimum.
+
+\begin{proof}
+First let the branch be a finite tree; all event times are distinct
+almost surely. Write $\sigma=\min(\Lambda_w,\{X_i:U_i<X_i\})$.
+
+Up to the freezing time of $w$, each child branch evolves as it
+does alone. Indeed, an edge of branch $i$ opens or not according to the
+states of its own endpoints, and a strike can change the states in
+branch $i$ only by freezing an open cluster meeting branch $i$. Before
+$w$ is frozen, such a cluster cannot contain $w$, because $w$ would then
+freeze; so it lies in branch $i$, and it is the cluster the strike
+freezes in branch $i$ alone. Ordering the event times, this shows by
+induction that the two evolutions agree until $w$ freezes.
+
+Now $w$ freezes at its own strike $\Lambda_w$ or when a strike at a
+vertex $u$ of some branch $i$ freezes an open cluster containing $w$.
+In the second case, at that time $s$ the edge $ww_i$ is open, so $U_i<s$
+and $w_i$ was warm at time $U_i$, and $w_i$ belongs to the struck
+cluster. Since the evolution of branch $i$ agrees with its own up to
+time $s$, $w_i$ freezes at $s$ in branch $i$ alone and was warm before.
+Hence $s=X_i>U_i$, and the freezing time of $w$ is at least
+$\sigma$.
+
+Conversely, suppose the freezing time of $w$ were larger than
+$\sigma$. Then $\sigma\neq\Lambda_w$, so $\sigma=X_i$ for some $i$ with
+$U_i<X_i$. At time $U_i$, $w$ is warm, and $w_i$ is warm because its
+branch evolves as it does alone and $U_i<X_i$, so the edge $ww_i$ opens.
+At time $X_i$, the strike that freezes $w_i$ in branch $i$ alone hits a
+vertex $u$ of branch $i$ whose open cluster contains $w_i$. In the joint
+process this cluster also contains $w$ through the open edge $ww_i$, so
+$w$ freezes at $X_i=\sigma$, a contradiction. If $w$ is already frozen
+at time $U_i$, its freezing time is less than $U_i<X_i$, so in
+this case too it is at most $\sigma$. Therefore the freezing time
+of $w$ equals $\sigma$. The argument does not use the number of children.
+
+For the infinite branch, the clusters of $E_{1/2}$ are finite almost
+surely. The values of $X,X_1,X_2$ up to $1/2$, and the event that they
+exceed $1/2$, are determined by the marks in the clusters of $w,w_1,w_2$
+in $E_{1/2}$. Apply the finite case to a finite subtree containing these
+clusters. Independence holds because $X_i$ depends only on the marks in
+branch $i$, and the branches are copies of the original one.
+\end{proof}
+
+Let $F(t)=\PP(X\le t)$ for $0\le t\le1/2$ and
+\[
+a(t)=1-\int_{[0,t]}s\,\dd F(s).
+\]
+Since $X$ is one of the lightning times when it is finite, $F$ has no
+atoms. By Lemma~\ref{lem:rec}, $X>t$ if and only if $\Lambda_w>t$ and,
+for $i=1,2$, it is not the case that $U_i<X_i\le t$; and
+$\PP(U_i<X_i\le t)=\int_{[0,t]}s\,\dd F(s)$. Hence, for $0\le t\le1/2$,
+\begin{equation}\label{eq:rde}
+1-F(t)=e^{-\lambda t}a(t)^2,\qquad
+\PP(\tau_o>t)=e^{-\lambda t}a(t)^3.
+\end{equation}
+
+\begin{lemma}\label{lem:ode}
+For $\lambda>0$ the function $h(t)=e^{\lambda t}/a(t)-1$ is continuously
+differentiable on $[0,1/2]$ and
+\begin{equation}\label{eq:ode}
+h'=\lambda\,\frac{(1+h)(1+h-t)}{1-2t+h},\qquad h(0)=0.
+\end{equation}
+Moreover $h(t)\ge e^{\lambda t}-1\ge\lambda t$, and with $H=h(1/2)$,
+\begin{equation}\label{eq:exact}
+\PP(\tau_o\le\tfrac12)=1-\frac{e^{\lambda}}{(1+H)^3}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Both sides of the first identity in \eqref{eq:rde} are continuous and of
+bounded variation. Taking Stieltjes differentials and using
+$\dd a=-t\,\dd F$,
+\[
+\bigl(1-2te^{-\lambda t}a(t)\bigr)\,\dd F(t)=\lambda e^{-\lambda t}a(t)^2\,\dd t.
+\]
+Since $a\le1$, the factor on the left is at least $1-2te^{-\lambda t}$,
+which is positive on $[0,1/2]$ when $\lambda>0$. Hence $F$ has the
+continuous density
+$F'=\lambda e^{-\lambda t}a^2/(1-2te^{-\lambda t}a)$, and $a'=-tF'$. For
+$x=e^{\lambda t}/a=1+h$ this gives
+\[
+x'=\lambda x+\frac{\lambda t}{1-2t/x}=\lambda x\,\frac{x-t}{x-2t},
+\]
+which is \eqref{eq:ode}; note $x-2t>0$. Since $(x-t)/(x-2t)\ge1$, we
+have $x'\ge\lambda x$ and $x(t)\ge e^{\lambda t}$. Finally
+$a(1/2)=e^{\lambda/2}/(1+H)$, and \eqref{eq:exact} follows from the
+second identity in \eqref{eq:rde}.
+\end{proof}
+
+The derivation uses the independence of the branches, which fails on
+graphs with cycles.
+
+\section{Proof of Theorem~\ref{thm:C}}\label{sec:asym}
+
+Constants $C$ below do not depend on $\lambda$, and statements hold for
+all sufficiently small $\lambda$. By Theorem~\ref{thm:A} for $\T$ and by
+\eqref{eq:exact}, $H\to0$ as $\lambda\to0$; we may assume $H\le1$. Put
+\[
+D(t)=1-2t+h(t),\qquad I=\int_0^{1/2}\frac{\dd t}{D(t)}.
+\]
+Writing $1+h-t=\frac12D+\frac12(1+h)$, equation \eqref{eq:ode} becomes
+\begin{equation}\label{eq:split}
+h'=\frac\lambda2(1+h)+\frac\lambda2\,\frac{(1+h)^2}{D}.
+\end{equation}
+
+\emph{A priori bounds.} Since $h\ge\lambda t$ and $h\le H\le1$,
+integrating \eqref{eq:split} gives
+\[
+H\le\lambda+2\lambda\int_0^{1/2}\frac{\dd t}{1-2t+\lambda t}
+=\lambda+\frac{2\lambda\log(2/\lambda)}{2-\lambda}
+\le C\lambda\log\frac1\lambda .
+\]
+Since $h\le H$ and $(1+h)^2\ge1$, it also gives
+\[
+H\ge\frac\lambda2\int_0^{1/2}\frac{\dd t}{1-2t+H}
+=\frac\lambda4\log\frac{1+H}{H},
+\]
+so $H/\lambda\to\infty$.
+
+\emph{The integral $I$.} We show
+\begin{equation}\label{eq:I}
+I=\frac12\log\frac1H+o(1).
+\end{equation}
+From \eqref{eq:ode} and $1+h\le2$ we get $h'\le4\lambda/D$, and $D\ge h$
+since $t\le1/2$. Let $t_*=1/2-H$ and $h_*=h(t_*)$. On $[t_*,1/2]$ we have
+$(h^2)'=2hh'\le8\lambda$, so $H^2-h_*^2\le8\lambda H$ and
+$H-h_*\le8\lambda$. As $\lambda=o(H)$, this gives $h\ge h_*\ge H/2$ on
+$[t_*,1/2]$. On $[0,t_*]$ we have $h'\le4\lambda/(1-2t)$, so for
+$t\le t_*$
+\begin{equation}\label{eq:gap}
+0\le H-h(t)\le8\lambda+2\lambda\log\frac{1-2t}{2H}
+\le C\lambda\Bigl(1+\log\frac{1-2t}{2H}\Bigr).
+\end{equation}
+Compare $I$ with
+$J=\int_0^{1/2}\dd t/(1-2t+H)=\frac12\log\bigl((1+H)/H\bigr)$:
+\[
+0\le I-J=\int_0^{1/2}\frac{H-h(t)}{D(t)\,(1-2t+H)}\,\dd t .
+\]
+On $[0,t_*]$ bound the denominator below by $(1-2t)^2$, use
+\eqref{eq:gap} and substitute $u=(1-2t)/(2H)$:
+\[
+\int_0^{t_*}\frac{H-h(t)}{(1-2t)^2}\,\dd t
+\le\frac{C\lambda}{4H}\int_1^\infty\frac{1+\log u}{u^2}\,\dd u
+=\frac{C\lambda}{2H}.
+\]
+On $[t_*,1/2]$, an interval of length $H$, the integrand is at most
+$8\lambda/((H/2)H)$, so this part is at most $16\lambda/H$. Hence
+$I-J=O(\lambda/H)=o(1)$, and \eqref{eq:I} follows because
+$J=\frac12\log(1/H)+O(H)$. In particular $HI\to0$.
+
+\emph{The expansion.} Integrate \eqref{eq:split} over $[0,1/2]$. The
+first term contributes $\frac\lambda2(\frac12+O(H))$. In the second,
+$(1+h)^2=1+O(H)$, so it contributes $\frac\lambda2(I+O(HI))$. By
+\eqref{eq:I},
+\begin{equation}\label{eq:H1}
+H=\frac\lambda4\Bigl[\log\frac1H+1+o(1)\Bigr].
+\end{equation}
+Since $\lambda/2\le H\le C\lambda L$, we have $\log(1/H)=L+O(\log L)$, and
+\eqref{eq:H1} gives $H/(\lambda L)\to1/4$. Therefore
+$\log(1/H)=L-\log L+\log4+o(1)$, and by \eqref{eq:H1} again
+\begin{equation}\label{eq:H2}
+H=\frac\lambda4\Bigl[L-\log L+\log4+1+o(1)\Bigr].
+\end{equation}
+Finally, $H^2+\lambda H=O(\lambda^2L^2)=o(\lambda)$, so \eqref{eq:exact}
+gives
+$\PP(\tau_o\le\frac12)=1-(1+\lambda)(1-3H)+o(\lambda)=3H-\lambda+o(\lambda)$.
+Inserting \eqref{eq:H2} gives \eqref{eq:C1}, since $1-\frac43=-\frac13$.
+\qed
+
+\section{Sharpness and two examples}\label{sec:sharp}
+
+\begin{proof}[Proof of \eqref{eq:sharp}]
+The upper bound $\limsup\le3/4$ is \eqref{eq:A2}. For the lower bound,
+let $\T_R$ be the ball of radius $R$ in $\T$, rooted at its centre $o$,
+and use the same marks on $\T_R$ as on $\T$. The freezing time of
+$o$ up to $1/2$ is determined by the marks on the cluster of $o$ in
+$E_{1/2}$ (Section~\ref{sec:A}). If this cluster does not reach distance
+$R$ from $o$, it is the same in $\T_R$ and in $\T$, and the two
+freezing times agree up to $1/2$. Let $q_k$ be the probability that
+critical binary branching with $\mathrm{Bin}(2,1/2)$ offspring survives
+$k$ generations. Then $q_0=1$ and $q_{k+1}=1-(1-q_k/2)^2=q_k-q_k^2/4$, so
+$1/q_{k+1}\ge1/q_k+1/4$ and $q_k\le4/(k+4)$. The cluster of $o$ reaches
+distance $R$ with probability at most $3\cdot\frac12 q_{R-1}\le
+6/(R+3)$. Hence
+\[
+\bigl|\PP_{\T_R}(\tau_o\le\tfrac12)-\PP_{\T}(\tau_o\le\tfrac12)\bigr|\le\frac6{R+3},
+\]
+and letting $R\to\infty$ for fixed $\lambda$ shows that the supremum in
+\eqref{eq:sharp} is at least $\PP_\T(\tau_o\le\frac12)$. Theorem~\ref{thm:C}
+completes the proof.
+\end{proof}
+
+\begin{remark}[The degree bound is needed]
+Without a bound on the degree there is no bound of the form of
+Theorem~\ref{thm:A}. In a star with $m$ leaves, a leaf whose edge time is
+at most $1/4$ and whose lightning time lies in $[1/4,1/2]$ freezes the
+centre by time $1/2$, unless the centre is frozen already. These events
+are independent over the leaves and each has probability
+$p=\frac14(e^{-\lambda/4}-e^{-\lambda/2})$, so the centre is frozen by
+time $1/2$ with probability at least $1-(1-p)^m$, which tends to one
+when $m=\lceil\lambda^{-2}\rceil$ and $\lambda\to0$.
+\end{remark}
+
+\begin{remark}[The first-order term on a fixed graph]\label{rem:cycles}
+For a fixed finite graph, two strikes before $1/2$ have probability
+$O(\lambda^2)$, and with one strike $v$ freezes exactly when the struck
+vertex is in $C_s(v)$ at the strike time $s$. So
+$\frac{\dd}{\dd\lambda}\PP(\tau_v\le\frac12)|_{\lambda=0}
+=\int_0^{1/2}\E|C_t(v)|\,\dd t$. For a vertex of a triangle,
+$\E|C_t(v)|=1+2t+2t^2-2t^3$ and the integral is $77/96$. The tree has no
+such first-order term: there $\E|C_t(o)|=-\frac12+\frac3{2(1-2t)}$ is not
+integrable at $1/2$, which is the source of the factor $\log(1/\lambda)$
+in \eqref{eq:C1}.
+\end{remark}
+
+\section{Numerical values of the constant}\label{sec:num}
+
+We solved \eqref{eq:ode} with an arbitrary-precision Taylor integrator
+(\texttt{mpmath.odefun}, 40 digits) for $\lambda=10^{-k}$,
+$k=3,4,6,8,10,12$, and evaluated \eqref{eq:exact}. Table~\ref{tab:num}
+lists $K(\lambda)=\PP(\tau_o\le\frac12)/(3\lambda/4)-(L-\log L)$, which
+by \eqref{eq:C1} tends to $\log4-\frac13=1.05296\ldots$. The convergence
+is slow, as expected from the error terms. Write
+$\rho(\lambda)=4H/\lambda-\log(1/H)-1$ for the error in \eqref{eq:H1}. Using
+\eqref{eq:exact} and the definition of $\rho$ one finds
+\[
+K(\lambda)-\Bigl(\log4-\frac13\Bigr)
+=\rho(\lambda)-\log\frac{4H}{\lambda L}+O(\lambda L^2).
+\]
+The difference between the third and fourth columns of Table~\ref{tab:num}
+is the term $O(\lambda L^2)$; it equals $2.1\cdot10^{-2}$, $3.6\cdot10^{-3}$
+and $8\cdot10^{-5}$ for $\lambda=10^{-3},10^{-4},10^{-6}$ and is below
+$10^{-5}$ for $\lambda\le10^{-8}$. The
+product $L\,\rho(\lambda)$ stays near $1.05$, so $\rho(\lambda)$ decays like
+$1/L$, and $\log(4H/(\lambda L))$ is of order $(\log L)/L$; this is the
+rate at which $K(\lambda)$ approaches its limit.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rcccc}
+\toprule
+$\lambda$ & $K(\lambda)$ & $K(\lambda)-\log4+\frac13$ & $\rho(\lambda)-\log\frac{4H}{\lambda L}$ & $L\,\rho(\lambda)$\\
+\midrule
+$10^{-3}$ & $1.11663$ & $0.06367$ & $0.08455$ & $1.1023$\\
+$10^{-4}$ & $1.13639$ & $0.08343$ & $0.08702$ & $1.0511$\\
+$10^{-6}$ & $1.14003$ & $0.08706$ & $0.08714$ & $1.0508$\\
+$10^{-8}$ & $1.13468$ & $0.08172$ & $0.08172$ & $1.0544$\\
+$10^{-10}$ & $1.12848$ & $0.07552$ & $0.07552$ & $1.0539$\\
+$10^{-12}$ & $1.12276$ & $0.06980$ & $0.06980$ & $1.0520$\\
+\bottomrule
+\end{tabular}
+\caption{The tree constant from the differential equation \eqref{eq:ode}.}
+\label{tab:num}
+\end{table}
+
+\section*{Acknowledgments and funding}
+
+The research presented in this paper was supported by the European
+Research Council (ERC) under the European Union's Horizon Europe research
+and innovation programme (grant agreement No.~101041711) and by the Simons
+Foundation as part of the Collaboration on the Mathematical and Scientific
+Foundations of Deep Learning. It was also supported by Heights Labs, by
+Convex Nexus Capital and by the Israel Science Foundation (ISF grants
+2258/19 and 4101/25).
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex
+(OpenAI), connected to Math Brain~\cite{MathBrainRepo} and working
+together inside the Brain framework~\cite{BrainFramework}. The method is
+described in~\cite{MathBrainPaper}.
+
+\section*{Declaration of competing interest}
+
+The author holds equity in Heights Labs and in Convex Nexus Capital and
+has a management role at Convex Nexus Capital.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+
+This paper is part of a broader research project on proving open
+problems with AI systems, carried out with Claude (Anthropic) and Codex (OpenAI) connected
+to Math Brain~\cite{MathBrainRepo} inside the Brain
+framework~\cite{BrainFramework}, as described in~\cite{MathBrainPaper}.
+Codex (model GPT-6.1-sol) found and proved the results of
+Sections~\ref{sec:A}--\ref{sec:sharp}, and a separate Codex run audited
+them. Claude (Opus~5.5) checked the proofs, wrote the computation of
+Section~\ref{sec:num}, and wrote the text. Frozen percolation on the
+three-regular tree is due to Aldous~\cite{Ald00}; the finite-graph model
+with lightning and Problem~2 are due to Ráth, Swart and
+Terpai~\cite{RST21}. Without lightning, the recursion of
+Lemma~\ref{lem:rec} is the recursion of Aldous's process as Ráth, Swart
+and Terpai write it~\cite{RST21}. Recursive distributional equations of the kind
+used in Section~\ref{sec:rec} are surveyed by Aldous and
+Bandyopadhyay~\cite{AB05}, and the complete-graph model with lightning
+and its window curve, which Theorem~\ref{thm:C} parallels, are due to
+Ráth, Szőke and Yeo~\cite{RSY26}. These results are theirs. The author directed the work and is responsible for
+the content of the paper and for decisions concerning its dissemination.
+
+\section*{Data and code availability}
+
+The script \texttt{residual\_check.py} and its output are available at
+\url{https://github.com/yspennstate/frozen-percolation-rare-lightning}.
+
+\begin{thebibliography}{99}
+
+\bibitem{Ald00}
+D.~J. Aldous, \emph{The percolation process on a tree where infinite
+clusters are frozen}, Math. Proc. Cambridge Philos. Soc. \textbf{128}
+(2000), 465--477, doi:10.1017/S0305004199004326.
+
+\bibitem{AB05}
+D.~J. Aldous and A.~Bandyopadhyay, \emph{A survey of max-type recursive
+distributional equations}, Ann. Appl. Probab. \textbf{15} (2005),
+1047--1110, doi:10.1214/105051605000000142.
+
+\bibitem{BKN12}
+J.~van den Berg, D.~Kiss and P.~Nolin, \emph{A percolation process on the
+binary tree where large finite clusters are frozen}, Electron. Commun.
+Probab. \textbf{17} (2012), no.~2, 1--11, doi:10.1214/ECP.v17-1694.
+
+\bibitem{Rat09}
+B.~Ráth, \emph{Mean field frozen percolation}, J. Stat. Phys.
+\textbf{137} (2009), 459--499, doi:10.1007/s10955-009-9863-5.
+
+\bibitem{RST21}
+B.~Ráth, J.~M. Swart and T.~Terpai, \emph{Frozen percolation on the
+binary tree is nonendogenous}, Ann. Probab. \textbf{49} (2021),
+2272--2316, doi:10.1214/21-AOP1507.
+
+\bibitem{RSY26}
+B.~Ráth, M.~Szőke and D.~Yeo, \emph{The window process of slightly
+subcritical frozen percolation}, preprint, 2026, arXiv:2610.37320.
+
+\bibitem{RT09}
+B.~Ráth and B.~Tóth, \emph{Erd\H{o}s--Rényi random graphs + forest fires =
+self-organized criticality}, Electron. J. Probab. \textbf{14} (2009),
+1290--1327, doi:10.1214/EJP.v14-653.
+
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain}, public repository, 2026, \url{https://github.com/yspennstate/math-brain-public/tree/8c9a6bd478c4ec4082347151b7ae16db50c917dd}.
+
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, doi:10.5281/zenodo.24150837,
+\url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, \url{https://github.com/yspennstate/brain-framework-public/tree/5629e644cdd510173ae97e9aa92642dabd22dc57}.
+
+\end{thebibliography}
+
+\end{document}
