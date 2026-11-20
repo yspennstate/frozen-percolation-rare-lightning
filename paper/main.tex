@@ -100,7 +100,7 @@ $\mathrm{Bin}(3,1/2)$ children and whose other vertices have
 $\mathrm{Bin}(2,1/2)$ children, given in
 \eqref{eq:A1} below. An upper bound of this kind does not show that its
 constant is attained. On $\T$, removing an edge at the root leaves a
-rooted binary tree, a \emph{branch}; the subtrees below a vertex are
+rooted binary tree, a \emph{branch}. The subtrees below a vertex are
 independent branches, and the freezing time of the root of a branch
 satisfies an exact recursive distributional equation of the kind
 surveyed by Aldous and Bandyopadhyay~\cite{AB05}. Written for the
@@ -154,8 +154,8 @@ vertex of the ball has the same open/closed and warm/frozen history on
 $[0,1/2]$ in both processes. In particular, if $G_n$ converges locally to
 $\T$, that is $b_n(r)\to0$ for every $r$, and $\lambda_n\to0$, then for
 every $r$ the history on $[0,1/2]$ of the ball of radius $r$ around $o_n$
-converges in law to the history of $\T_r$ in Aldous's process. On
-$\T$ that restriction has no frozen vertex almost surely, so on
+converges in law to the history of $\T_r$ in Aldous's process. Aldous's
+process has no frozen vertex on $[0,1/2]$ almost surely, so on
 $[0,1/2]$ the limit is ordinary percolation.
 \end{corollary}
 
@@ -561,8 +561,8 @@ when $m=\lceil\lambda^{-2}\rceil$ and $\lambda\to0$.
 
 \begin{remark}[The first-order term on a fixed graph]\label{rem:cycles}
 For a fixed finite graph, two strikes before $1/2$ have probability
-$O(\lambda^2)$, and with one strike $v$ freezes exactly when the struck
-vertex is in $C_s(v)$ at the strike time $s$; a strike outside $C_s(v)$
+$O(\lambda^2)$. With one strike, $v$ freezes exactly when the struck
+vertex is in $C_s(v)$ at the strike time $s$. A strike outside $C_s(v)$
 freezes a cluster not containing $v$, and $v$ cannot join that cluster
 later, because an edge with a frozen endpoint never opens. So
 $\frac{\dd}{\dd\lambda}\PP(\tau_v\le\frac12)|_{\lambda=0}
