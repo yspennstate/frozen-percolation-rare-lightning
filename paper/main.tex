@@ -41,9 +41,8 @@ most
 $\frac34\lambda\log(1/\lambda)+O(\lambda)$, uniformly in the graph. So
 along such graphs converging locally to the three-regular tree with
 $\lambda_n\to0$, the process on $[0,1/2]$ converges to Aldous's frozen
-percolation on the tree, in which a cluster freezes when it becomes
-infinite and no vertex is frozen before time $1/2$. On the tree itself,
-an exact recursion for the
+percolation on the tree, where clusters freeze on becoming infinite,
+none before time $1/2$. On the tree itself, an exact recursion for the
 freezing time shows that the root is frozen by time $1/2$ with
 probability
 $\frac34\lambda[\log(1/\lambda)-\log\log(1/\lambda)+\log4-\frac13+o(1)]$,
@@ -142,9 +141,9 @@ no infinite cluster; every edge $e$ is open from time $U_e$ on.
 
 \begin{corollary}\label{cor:B}
 Let $G_n$ be finite graphs of maximum degree at most three, let $o_n$ be
-a uniformly chosen vertex of $G_n$, let $r\ge1$, and let
-$b_n(r)=\PP(B_r(G_n,o_n)\not\cong\T_r)$. Let $\lambda_n\in(0,1]$. There is
-a coupling of the frozen percolation process on $G_n$ with rate
+a uniformly chosen vertex of $G_n$, and for $r\ge1$ let
+$b_n(r)=\PP(B_r(G_n,o_n)\not\cong\T_r)$. Let $\lambda_n\in(0,1]$. For
+every $r\ge1$ there is a coupling of the frozen percolation process on $G_n$ with rate
 $\lambda_n$, rooted at $o_n$, with Aldous's process on $\T$, under which,
 outside an event of probability at most
 \begin{equation}\label{eq:B1}
@@ -218,9 +217,11 @@ percolation was introduced by Ráth~\cite{Rat09}, following a suggestion
 of Aldous~\cite[Section~5.5]{Ald00}, and the related forest fire model by
 Ráth and Tóth~\cite{RT09}. Ráth, Szőke and Yeo~\cite{RSY26} study the
 complete graph with lightning rate $\lambda_n$, where struck components
-are deleted. Their deterministic window curve $w(t)=tq(t)$ solves
-$q'=-\lambda q/(1-tq)$ with $q(0)=1$, and the fraction of vertices in deleted components by the
-critical time $t=1$ is of order $\lambda\log(1/\lambda)$, as they note
+are deleted. Their deterministic window curve is $w(t)=tq(t)$, where
+$q$, a deterministic approximation of the fraction of vertices not yet
+deleted, solves $q'=-\lambda q/(1-tq)$ with $q(0)=1$. At the critical
+time $t=1$ the deleted fraction $1-q(1)=1-w(1)$ in this approximation is
+of order $\lambda\log(1/\lambda)$, as they note
 without proof \cite[Remark~2.18]{RSY26}; their Claim~2.17 gives the time
 at which the window curve reaches criticality. Theorem~\ref{thm:C} is a tree
 counterpart of this, with the constant $3/4$ identified.
@@ -637,7 +638,7 @@ This paper is part of a broader research project on proving open
 problems with AI systems, carried out with Claude (Anthropic) and Codex (OpenAI) connected
 to Math Brain~\cite{MathBrainRepo} inside the Brain
 framework~\cite{BrainFramework}, as described in~\cite{MathBrainPaper}.
-Codex (model GPT-6.1-sol) found and proved the results of
+Codex (model GPT-6.1-sol) proposed and proved the results of
 Sections~\ref{sec:A}--\ref{sec:sharp}, and a separate Codex run audited
 them. Claude (Opus~5.5) checked the proofs, wrote the computation of
 Section~\ref{sec:num}, and wrote the text. Frozen percolation on the
