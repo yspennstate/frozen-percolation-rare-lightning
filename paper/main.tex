@@ -161,9 +161,8 @@ $[0,1/2]$ the limit is ordinary percolation.
 
 Theorem~\ref{thm:A} and Corollary~\ref{cor:B} are proved in
 Section~\ref{sec:A}. The main result shows that the order
-$\lambda\log(1/\lambda)$ and the constant $3/4$ are correct. On $\T$ the
-process up to time $1/2$ is defined by running it on each critical
-percolation cluster, all of which are finite.
+$\lambda\log(1/\lambda)$ and the constant $3/4$ are correct. The process
+on $\T$ up to time $1/2$ is defined at the end of Section~\ref{sec:A}.
 
 \begin{theorem}\label{thm:C}
 Let $o$ be the root of the three-regular tree $\T$ and $L=\log(1/\lambda)$.
@@ -200,28 +199,24 @@ $1/(1-2t+h)$ produces the term $\log(1/\lambda)$ (Section~\ref{sec:asym}).
 
 \smallskip
 \noindent\textbf{Relation to other work.}
-Aldous constructed his process in~\cite{Ald00}, recursive
-distributional equations of this kind are surveyed by Aldous and
-Bandyopadhyay~\cite{AB05}, and Ráth, Swart and Terpai proved that the
-process is not endogenous~\cite{RST21}. Van den Berg, Kiss and
+Van den Berg, Kiss and
 Nolin~\cite{BKN12} study a percolation process on the planted binary
 tree, the binary tree whose root has a single child. In their process
-clusters freeze as soon as their size reaches a parameter $N$, instead of
-by lightning. They show that as $N\to\infty$, at each time $t$, the probability that
+clusters freeze as soon as their size reaches a parameter $M$, instead of
+by lightning. They show that as $M\to\infty$, at each time $t$, the probability that
 the open cluster of the root equals a given finite cluster converges to
 the corresponding probability in Aldous's process, and so does the
 probability that this cluster is frozen~\cite[Theorem~1]{BKN12}. Corollary~\ref{cor:B} differs in three ways: it
 concerns finite graphs converging to $\T$ rather than the tree itself,
 clusters freeze by lightning rather than at a size threshold, and it
 covers only times up to $1/2$. On the complete graph, frozen
-percolation was introduced by Ráth~\cite{Rat09}, following a suggestion
-of Aldous~\cite[Section~5.5]{Ald00}, and the related forest fire model by
+percolation was introduced by Ráth~\cite{Rat09}, and the related forest fire model by
 Ráth and Tóth~\cite{RT09}. Ráth, Szőke and Yeo~\cite{RSY26} study the
 complete graph with lightning rate $\lambda_n$, where struck components
-are deleted. Their deterministic window curve is $w(t)=tq(t)$, where
-$q$, a deterministic approximation of the fraction of vertices not yet
-deleted, solves $q'=-\lambda q/(1-tq)$ with $q(0)=1$. At the critical
-time $t=1$ the deleted fraction $1-q(1)=1-w(1)$ in this approximation is
+are deleted. Their deterministic window curve is $t\theta(t)$, where
+$\theta$, a deterministic approximation of the fraction of vertices not yet
+deleted, solves $\theta'=-\lambda\theta/(1-t\theta)$ with $\theta(0)=1$. At the critical
+time $t=1$ the deleted fraction $1-\theta(1)$ in this approximation is
 of order $\lambda\log(1/\lambda)$, as they note
 without proof \cite[Remark~2.18]{RSY26}; their Claim~2.17 gives the time
 at which the window curve reaches criticality. Theorem~\ref{thm:C} is a tree
@@ -299,7 +294,7 @@ The right side increases with $k$, so by Lemma~\ref{lem:cluster} its
 expectation is at most $1-\E e^{-\lambda\varepsilon N}
 =1-\psi(e^{-\lambda\varepsilon})$. This proves \eqref{eq:A1}.
 
-For \eqref{eq:A2}, write $y=\sqrt{1-z}$. Then
+For \eqref{eq:A2}, with $y=\sqrt{1-z}$ as in the proof of Lemma~\ref{lem:cluster},
 $1-\psi(z)=(3y+y^2)/(1+y)^2\le3y$. Take $\varepsilon=\lambda/4$,
 which is less than $1/2$ for $\lambda\le1$. Since
 $1-e^{-\lambda^2/4}\le\lambda^2/4$, we get
@@ -529,7 +524,7 @@ Inserting \eqref{eq:H2} gives \eqref{eq:C1}, since $1-\frac43=-\frac13$.
 
 \begin{proof}[Proof of \eqref{eq:sharp}]
 The upper bound $\limsup\le3/4$ is \eqref{eq:A2}. For the lower bound,
-let $\T_R$ be the ball of radius $R$ in $\T$, rooted at its centre $o$,
+take the root $o$ of $\T$ as the centre of the ball $\T_R$
 and use the same marks on $\T_R$ as on $\T$. The freezing time of
 $o$ up to $1/2$ is determined by the marks on the cluster of $o$ in
 $E_{1/2}$ (Section~\ref{sec:A}). If this cluster does not reach distance
@@ -573,7 +568,7 @@ integrable at $1/2$, which is the source of the factor $\log(1/\lambda)$
 in \eqref{eq:C1}.
 \end{remark}
 
-\section{Numerical values of the constant}\label{sec:num}
+\section{Numerical values of the term $\log4-\frac13$}\label{sec:num}
 
 We solved \eqref{eq:ode} with an arbitrary-precision Taylor integrator
 (\texttt{mpmath.odefun}, 40 digits) for $\lambda=10^{-k}$,
@@ -609,7 +604,7 @@ $10^{-10}$ & $1.12848$ & $0.07552$ & $0.07552$ & $1.0539$\\
 $10^{-12}$ & $1.12276$ & $0.06980$ & $0.06980$ & $1.0520$\\
 \bottomrule
 \end{tabular}
-\caption{The tree constant from the differential equation \eqref{eq:ode}.}
+\caption{The quantity $K(\lambda)$, which tends to $\log4-\frac13$, computed from the differential equation \eqref{eq:ode}.}
 \label{tab:num}
 \end{table}
 
