@@ -41,7 +41,9 @@ most
 $\frac34\lambda\log(1/\lambda)+O(\lambda)$, uniformly in the graph. So
 along such graphs converging locally to the three-regular tree with
 $\lambda_n\to0$, the process on $[0,1/2]$ converges to Aldous's frozen
-percolation, in which no vertex is frozen before time $1/2$. On the tree itself, an exact recursion for the
+percolation on the tree, in which a cluster freezes when it becomes
+infinite and no vertex is frozen before time $1/2$. On the tree itself,
+an exact recursion for the
 freezing time shows that the root is frozen by time $1/2$ with
 probability
 $\frac34\lambda[\log(1/\lambda)-\log\log(1/\lambda)+\log4-\frac13+o(1)]$,
@@ -66,7 +68,7 @@ clusters by lightning instead.
 \smallskip
 \noindent\textbf{The model.} Let $G=(V,E)$ be a finite graph and let
 $\lambda>0$. Let $(U_e)_{e\in E}$ be independent and uniform on $[0,1]$,
-and let $(\Lambda_v)_{v\in V}$ be independent exponential random variables
+and let the \emph{lightning times} $(\Lambda_v)_{v\in V}$ be independent exponential random variables
 with mean $\lambda^{-1}$, independent of the edge times. Every vertex is
 \emph{warm} at time $0$. At time $U_e$ the edge $e$ opens, provided that
 neither endvertex is frozen. At time $\Lambda_v$ every vertex of the open
@@ -76,7 +78,7 @@ stay open. We write $\tau_v$ for the time at which $v$ becomes frozen
 \cite[Section~1.7]{RST21}, where $\lambda$ is called the lightning rate.
 Replacing the single time $\Lambda_v$ by the points of a Poisson process
 of rate $\lambda$ changes nothing, since strikes at frozen vertices have
-no effect.
+no effect. We call the edge times and the lightning times the \emph{marks}.
 
 Ráth, Swart and Terpai consider graphs $G_n$ with $n$ vertices that
 converge locally to a limit graph, with rates satisfying
@@ -140,7 +142,7 @@ no infinite cluster; every edge $e$ is open from time $U_e$ on.
 
 \begin{corollary}\label{cor:B}
 Let $G_n$ be finite graphs of maximum degree at most three, let $o_n$ be
-a uniformly chosen vertex of $G_n$, and let
+a uniformly chosen vertex of $G_n$, let $r\ge1$, and let
 $b_n(r)=\PP(B_r(G_n,o_n)\not\cong\T_r)$. Let $\lambda_n\in(0,1]$. There is
 a coupling of the frozen percolation process on $G_n$ with rate
 $\lambda_n$, rooted at $o_n$, with Aldous's process on $\T$, under which,
@@ -151,8 +153,9 @@ b_n(r)+(3\cdot2^r-2)\,\beta(\lambda_n),
 the two balls of radius $r$ are identified and every edge and every
 vertex of the ball has the same open/closed and warm/frozen history on
 $[0,1/2]$ in both processes. In particular, if $G_n$ converges locally to
-$\T$ and $\lambda_n\to0$, the process restricted to times in $[0,1/2]$
-converges locally to Aldous's process restricted to the same times. On
+$\T$, that is $b_n(r)\to0$ for every $r$, and $\lambda_n\to0$, then for
+every $r$ the history on $[0,1/2]$ of the ball of radius $r$ around $o_n$
+converges in law to the history of $\T_r$ in Aldous's process. On
 $\T$ that restriction has no frozen vertex almost surely, so on
 $[0,1/2]$ the limit is ordinary percolation.
 \end{corollary}
@@ -203,7 +206,7 @@ distributional equations of this kind are surveyed by Aldous and
 Bandyopadhyay~\cite{AB05}, and Ráth, Swart and Terpai proved that the
 process is not endogenous~\cite{RST21}. Van den Berg, Kiss and
 Nolin~\cite{BKN12} study a percolation process on the planted binary
-tree in which clusters freeze as soon as their size reaches a parameter
+tree, the binary tree whose root has a single child, in which clusters freeze as soon as their size reaches a parameter
 $N$, instead of by lightning, and show that as $N\to\infty$, at each time $t$, the probability that
 the open cluster of the root equals a given finite cluster converges to
 the corresponding probability in Aldous's process, and so does the
@@ -216,11 +219,11 @@ of Aldous~\cite[Section~5.5]{Ald00}, and the related forest fire model by
 Ráth and Tóth~\cite{RT09}. Ráth, Szőke and Yeo~\cite{RSY26} study the
 complete graph with lightning rate $\lambda_n$, where struck components
 are deleted. Their deterministic window curve $w(t)=tq(t)$ solves
-$q'=-\lambda q/(1-tq)$ with $q(0)=1$, and the fraction lost by the
+$q'=-\lambda q/(1-tq)$ with $q(0)=1$, and the fraction of vertices in deleted components by the
 critical time $t=1$ is of order $\lambda\log(1/\lambda)$, as they note
 without proof \cite[Remark~2.18]{RSY26}; their Claim~2.17 gives the time
 at which the window curve reaches criticality. Theorem~\ref{thm:C} is a tree
-counterpart of this, with the constant identified.
+counterpart of this, with the constant $3/4$ identified.
 
 Problem~2 of \cite{RST21} remains open. After time $1/2$ the
 percolation clusters of $\T$ can be infinite, the construction by finite
@@ -476,7 +479,7 @@ I=\frac12\log\frac1H+o(1).
 From \eqref{eq:ode} and $1+h\le2$ we get $h'\le4\lambda/D$, and $D\ge h$
 since $t\le1/2$. Let $t_*=1/2-H$ and $h_*=h(t_*)$. On $[t_*,1/2]$ we have
 $(h^2)'=2hh'\le8\lambda$, so $H^2-h_*^2\le8\lambda H$ and
-$H-h_*\le8\lambda$. As $\lambda=o(H)$, this gives $h\ge h_*\ge H/2$ on
+$H-h_*\le8\lambda$. As $\lambda=o(H)$ by the a priori bounds above, this gives $h\ge h_*\ge H/2$ on
 $[t_*,1/2]$. On $[0,t_*]$ we have $h'\le4\lambda/(1-2t)$, so for
 $t\le t_*$
 \begin{equation}\label{eq:gap}
@@ -507,7 +510,8 @@ $(1+h)^2=1+O(H)$, so it contributes $\frac\lambda2(I+O(HI))$. By
 \begin{equation}\label{eq:H1}
 H=\frac\lambda4\Bigl[\log\frac1H+1+o(1)\Bigr].
 \end{equation}
-Since $\lambda/2\le H\le C\lambda L$, we have $\log(1/H)=L+O(\log L)$, and
+Since $\lambda/2\le H$ (take $t=1/2$ in $h\ge\lambda t$, Lemma~\ref{lem:ode})
+and $H\le C\lambda L$, we have $\log(1/H)=L+O(\log L)$, and
 \eqref{eq:H1} gives $H/(\lambda L)\to1/4$. Therefore
 $\log(1/H)=L-\log L+\log4+o(1)$, and by \eqref{eq:H1} again
 \begin{equation}\label{eq:H2}
@@ -556,7 +560,9 @@ when $m=\lceil\lambda^{-2}\rceil$ and $\lambda\to0$.
 \begin{remark}[The first-order term on a fixed graph]\label{rem:cycles}
 For a fixed finite graph, two strikes before $1/2$ have probability
 $O(\lambda^2)$, and with one strike $v$ freezes exactly when the struck
-vertex is in $C_s(v)$ at the strike time $s$. So
+vertex is in $C_s(v)$ at the strike time $s$; a strike outside $C_s(v)$
+freezes a cluster not containing $v$, and $v$ cannot join that cluster
+later, because an edge with a frozen endpoint never opens. So
 $\frac{\dd}{\dd\lambda}\PP(\tau_v\le\frac12)|_{\lambda=0}
 =\int_0^{1/2}\E|C_t(v)|\,\dd t$. For a vertex of a triangle,
 $\E|C_t(v)|=1+2t+2t^2-2t^3$ and the integral is $77/96$. The tree has no
